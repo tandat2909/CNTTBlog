@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+function buildAction($classController,$action): string
+{
+    return $classController.'@'.$action;
+}
+
+Route::resource('frontend/forums',\App\Http\Controllers\Home::class);
+Route::get('/', buildAction(\App\Http\Controllers\Home::class,'index'));
+
+
+Route::resource('roles',\App\Http\Controllers\Role::class);
+Route::get('admin/roles',
+    [
+        'as' => 'roles',
+        'uses' => buildAction(\App\Http\Controllers\Role::class,'getAll')
+    ]);

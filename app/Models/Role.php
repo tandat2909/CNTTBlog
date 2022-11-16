@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Role extends AbstractModel
 {
-    use HasFactory;
+
+    public const USER = 'user';
+    public const ADMIN = 'admin';
 
     protected $fillable = ['id','title','slug','description','active','created_at','updated_at','content'];
-
+    protected $dates = ['created_at','updated_at'];
 
     /**
      * @param string $value
@@ -31,10 +33,7 @@ class Role extends AbstractModel
         return $this->hasMany(User::class);
     }
 
-    public static function validateBeforeSave($data): bool
-    {
-        return true;
-    }
+
 
 
 }

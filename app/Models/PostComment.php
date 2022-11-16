@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PostComment extends AbstractModel
 {
-    use HasFactory;
 
     /**
      * @param $value
@@ -29,8 +28,5 @@ class PostComment extends AbstractModel
     }
 
 
-    public static function validateBeforeSave($data): bool
-    {
-        return true;
-    }
+
 }

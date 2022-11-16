@@ -149,7 +149,6 @@ create table if not exists `CNTTBlog`.`posts` (
     `slug` VARCHAR(100) NOT NULL,
     `status` VARCHAR(100) not null default 'pending',
     `post_content` mediumtext COMMENT 'Post Content',
-    `store_ids` varchar(255) NOT NULL COMMENT 'Store Id',
     `image` varchar(255) DEFAULT NULL COMMENT 'Post Image',
     `views` int DEFAULT NULL COMMENT 'Post Views ',
     `enabled` int DEFAULT '1' COMMENT 'Post Enabled',
@@ -222,8 +221,9 @@ create table if not exists `CNTTBlog`.`categorys` (
                                                       `id` int NOT NULL AUTO_INCREMENT,
                                                       `parent_id` int NULL DEFAULT NULL,
                                                       `title` VARCHAR(75) NOT NULL,
+    `image` varchar(200) null default null,
     `metaTitle` VARCHAR(100) NULL DEFAULT NULL,
-    `slug` VARCHAR(100) NOT NULL,
+    `url_rewrite` VARCHAR(100) NOT NULL,
     `content` TEXT NULL DEFAULT NULL,
     `enabled` TINYINT NOT NULL DEFAULT 1,
     `created_at` timestamp NOT NULL,
@@ -231,7 +231,9 @@ create table if not exists `CNTTBlog`.`categorys` (
     PRIMARY KEY (`id`)) collate=utf8mb4_unicode_ci;
 
 ALTER TABLE `CNTTBlog`.`categorys`
-    ADD INDEX `idx_category_parent` (`parent_id` ASC);
+    ADD INDEX `idx_category_parent` (`parent_id` ASC),
+    ADD INDEX `idx_category_url_rewrite` (`url_rewrite` ASC );
+
 ALTER TABLE `CNTTBlog`.`categorys`
     ADD CONSTRAINT `fk_category_parent`
         FOREIGN KEY (`parent_id`)
@@ -256,6 +258,33 @@ create table if not exists `CNTTBlog`.`post_categorys` (
     REFERENCES `CNTTBlog`.`categorys` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION) collate=utf8mb4_unicode_ci;
+
+
+create table if not exists `CNTTBlog`.`hashtag` (
+      `id` int NOT NULL AUTO_INCREMENT,
+      `title` VARCHAR(75) NOT NULL,
+    `enabled` TINYINT NOT NULL DEFAULT 1,
+    `created_at` timestamp NOT NULL,
+    `updated_at` timestamp NULL DEFAULT NULL,
+    PRIMARY KEY (`id`)) collate=utf8mb4_unicode_ci;
+
+
+create table if not exists `CNTTBlog`.`post_hashtag`(
+    `post_id` int unsigned NOT NULL  COMMENT 'Post ID',
+    `hashtag_id` int not null COMMENT 'HashTag ID',
+    PRIMARY KEY (`post_id`,`hashtag_id`),
+    INDEX `idx_hashtag_post_id` (`post_id` ASC),
+    CONSTRAINT `fk_hashtag_post`
+        FOREIGN KEY (`post_id`)
+        REFERENCES `CNTTBlog`.`posts` (`id`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT `fk_post_hashtag`
+    FOREIGN KEY (`hashtag_id`)
+    REFERENCES `CNTTBlog`.`hashtag` (`id`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+    ) collate=utf8mb4_unicode_ci;
 
 
 

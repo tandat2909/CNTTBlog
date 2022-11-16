@@ -2,17 +2,56 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
+use Elasticquent\ElasticquentTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Category;
 
 class Post extends AbstractModel
 {
-    use HasFactory;
+    use HasFactory,ElasticquentTrait;
+
+    const STATUS_PENDING = 'pending';
+    const STATUS_APPROVED = 'approved';
+    const STATUS_DISAPPROVED = 'disapproved';
+
+    const STATUS = [self::STATUS_PENDING,self::STATUS_APPROVED,self::STATUS_DISAPPROVED];
+
+    protected $mappingProperties = [
+        'name' =>[
+            "type" => 'string',
+            "analyzer" => "standard"
+        ],
+        'short_description'=>[
+            "type" => 'string',
+            "analyzer" => "standard",
+        ],
+        'metaTitle' => [
+            "type" => 'string',
+            "analyzer" => "standard",
+        ],
+        'slug' => [
+            "type" => 'string',
+            "analyzer" => "standard",
+        ],
+        'status' => [
+            "type" => 'integer',
+            "analyzer" => "standard",
+        ],
+        'post_content' =>[
+            "type" => 'string',
+            "analyzer" => "standard",
+        ],
+        'views'=>[
+            "type" => 'integer',
+            "analyzer" => "standard",
+        ],
+        'author_id'=>[
+            "type" => 'integer',
+            'analyzer' => 'standard'
+        ]
+        ];
 
     protected $fillable = [
         'id', 'name', 'short_description', 'metaTitle', 'slug', 'status', 'post_content',
@@ -56,9 +95,18 @@ class Post extends AbstractModel
         return $this->hasMany(PostComment::class,'post_id');
     }
 
-    public static function validateBeforeSave($data): bool
+    /**
+     * @param $value
+     * @return BelongsToMany
+     */
+    public function Hashtags($value): BelongsToMany
     {
-        return true;
+        return $this->belongsToMany(Hashtag::class, 'post_hashtag');
     }
+
+    public function documentFields(){
+
+    }
+
 }
 

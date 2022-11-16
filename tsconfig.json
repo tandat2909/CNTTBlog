@@ -1,0 +1,17 @@
+{
+  "error": {
+    "root_cause": [
+      {
+        "type": "mapper_parsing_exception",
+        "reason": "Root mapping definition has unsupported parameters: [posts : {_source={enabled=true}, properties={short_description={analyzer=standard, type=text}, post_content={analyzer=standard, type=text}, metaTitle={analyzer=standard, type=text}, name={analyzer=standard, type=text}, author_id={analyzer=standard, type=int}, slug={analyzer=standard, type=text}, views={analyzer=standard, type=int}, status={analyzer=standard, type=int}}}]"
+      }
+    ],
+    "type": "mapper_parsing_exception",
+    "reason": "Failed to parse mapping [_doc]: Root mapping definition has unsupported parameters: [posts : {_source={enabled=true}, properties={short_description={analyzer=standard, type=text}, post_content={analyzer=standard, type=text}, metaTitle={analyzer=standard, type=text}, name={analyzer=standard, type=text}, author_id={analyzer=standard, type=int}, slug={analyzer=standard, type=text}, views={analyzer=standard, type=int}, status={analyzer=standard, type=int}}}]",
+    "caused_by": {
+      "type": "mapper_parsing_exception",
+      "reason": "Root mapping definition has unsupported parameters: [posts : {_source={enabled=true}, properties={short_description={analyzer=standard, type=text}, post_content={analyzer=standard, type=text}, metaTitle={analyzer=standard, type=text}, name={analyzer=standard, type=text}, author_id={analyzer=standard, type=int}, slug={analyzer=standard, type=text}, views={analyzer=standard, type=int}, status={analyzer=standard, type=int}}}]"
+    }
+  },
+  "status": 400
+}

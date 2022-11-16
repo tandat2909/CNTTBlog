@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,18 +14,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-function buildAction($classController,$action): string
+function buildAction($classController, $action): string
 {
-    return $classController.'@'.$action;
+    return $classController . '@' . $action;
 }
 
-Route::resource('frontend/forums',\App\Http\Controllers\Home::class);
-Route::get('/', buildAction(\App\Http\Controllers\Home::class,'index'));
+Route::resource('frontend.pages.forums', \App\Http\Controllers\Home::class);
+Route::get('/', [
+    'as' => 'index',
+    'uses'=>buildAction(\App\Http\Controllers\Home::class, 'index')
+]);
 
-
-Route::resource('roles',\App\Http\Controllers\Role::class);
+Route::resource('roles', \App\Http\Controllers\Admin\Role::class);
 Route::get('admin/roles',
     [
         'as' => 'roles',
-        'uses' => buildAction(\App\Http\Controllers\Role::class,'getAll')
+        'uses' => buildAction(\App\Http\Controllers\Admin\Role::class, 'getAll')
     ]);
+
+Route::get('{category_url_rewrite}/posts',
+    [
+        'as'=>'catalog_posts',
+        'uses'=> buildAction(\App\Http\Controllers\Catalog::class,'posts')
+    ]
+);
+
+Route::get('searchForum',
+    [
+        'as' => 'searchForum',
+        'uses' => buildAction(\App\Http\Controllers\Search::class, 'searchForum')
+    ]);
+
+Route::get("404",['as' => "404",'uses'=>buildAction(\App\Http\Controllers\RequestError::class,'page404')]);
+
+Auth::routes();
+

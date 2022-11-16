@@ -6,7 +6,7 @@ interface InterfaceBasicMethodController
 {
     public function get($id);
 
-    public function create($data);
+    public function create(array $data);
 
     public function delete($id);
 
@@ -14,5 +14,5 @@ interface InterfaceBasicMethodController
 
     public function search($keyword);
 
-    public function checkPermission():bool;
+    public function checkPermission(string $method):bool;
 }

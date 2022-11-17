@@ -28,7 +28,7 @@ class Home extends Controller
 
    function test(){
        Post::addAllToIndex();
-//       Post::reindex();
+       Post::reindex();
 
        $post = Post::searchByQuery(['match' => ['name' => 'Test']]);
        echo $post->first()->name;

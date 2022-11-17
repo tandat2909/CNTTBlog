@@ -10,20 +10,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends AbstractModel
 {
-    use HasFactory,ElasticquentTrait;
+    use HasFactory, ElasticquentTrait;
 
     const STATUS_PENDING = 'pending';
     const STATUS_APPROVED = 'approved';
     const STATUS_DISAPPROVED = 'disapproved';
 
-    const STATUS = [self::STATUS_PENDING,self::STATUS_APPROVED,self::STATUS_DISAPPROVED];
+    const STATUS = [self::STATUS_PENDING, self::STATUS_APPROVED, self::STATUS_DISAPPROVED];
 
     protected $mappingProperties = [
-        'name' =>[
+        'name' => [
             "type" => 'string',
             "analyzer" => "standard"
         ],
-        'short_description'=>[
+        'short_description' => [
             "type" => 'string',
             "analyzer" => "standard",
         ],
@@ -39,22 +39,22 @@ class Post extends AbstractModel
             "type" => 'integer',
             "analyzer" => "standard",
         ],
-        'post_content' =>[
+        'post_content' => [
             "type" => 'string',
             "analyzer" => "standard",
         ],
-        'views'=>[
+        'views' => [
             "type" => 'integer',
             "analyzer" => "standard",
         ],
-        'author_id'=>[
+        'author_id' => [
             "type" => 'integer',
             'analyzer' => 'standard'
         ]
-        ];
-    protected  $dates = [
+    ];
+    protected $dates = [
         'created_at', 'updated_at'
-        ];
+    ];
     protected $fillable = [
         'id', 'name', 'short_description', 'metaTitle', 'slug', 'status', 'post_content',
         'store_ids', 'image', 'views', 'enabled', 'url_key', 'allow_comment', 'created_at', 'updated_at', 'author_id',
@@ -94,7 +94,7 @@ class Post extends AbstractModel
      */
     public function CommentCollection($value): HasMany
     {
-        return $this->hasMany(PostComment::class,'post_id');
+        return $this->hasMany(PostComment::class, 'post_id');
     }
 
     /**
@@ -106,9 +106,6 @@ class Post extends AbstractModel
         return $this->belongsToMany(Hashtag::class, 'post_hashtag');
     }
 
-    public function documentFields(){
-
-    }
 
 }
 

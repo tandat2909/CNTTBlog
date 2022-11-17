@@ -46,7 +46,7 @@ Route::get('posts/{post_url_rewrite}',
 );
 
 
-
+Route::resource('frontend.pages.search', \App\Http\Controllers\Search::class);
 Route::get('searchForum',
     [
         'as' => 'searchForum',

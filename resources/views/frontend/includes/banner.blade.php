@@ -1,12 +1,12 @@
 <section class="doc_banner_area search-banner-light">
     <div class="container">
         <div class="doc_banner_content">
-            <form action="#" class="header_search_form">
+            <form action="{{URL::route('searchForum')}}" class="header_search_form">
                 <div class="header_search_form_info">
                     <div class="form-group">
                         <div class="input-wrapper">
                             <i class="icon_search"></i>
-                            <input type='search' id="searchbox" autocomplete="off" name="search"
+                            <input type='search' id="searchbox" autocomplete="off" name="search" value="{{request("search")}}"
                                    placeholder="Search for Topics...." />
                             <div class="header_search_form_panel">
                                 <ul class="list-unstyled">

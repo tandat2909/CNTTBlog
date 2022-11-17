@@ -2,13 +2,11 @@
 
 
 @section('title')
-    {{$category->title.' - Posts'}}
+    Search
 @endsection
 
 
 @section('body.wrapper.content')
-{{--    <h1>POST list {{$category->title}}</h1>--}}
-
 
 <section class="forum_sidebar_area" id="sticky_doc">
     <div class="container-fluid pl-60 pr-60">
@@ -48,7 +46,7 @@
                                             <h4>Intégration 300 by</h4>
                                         </a>
                                         <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Jean Conner</h5>
+                                            <h5><img src="/img/forum/r-topic-user.png" alt=""> Jean Conner</h5>
                                         </a>
                                         <p>4 days, 3 hours ago</p>
                                     </div>
@@ -64,7 +62,7 @@
                                             <h4>how by</h4>
                                         </a>
                                         <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Lucile Barber</h5>
+                                            <h5><img src="/img/forum/r-topic-user.png" alt=""> Lucile Barber</h5>
                                         </a>
                                         <p>1 week ago</p>
                                     </div>
@@ -80,7 +78,7 @@
                                             <h4>testing by</h4>
                                         </a>
                                         <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Dwain Cherry</h5>
+                                            <h5><img src="/img/forum/r-topic-user.png" alt=""> Dwain Cherry</h5>
                                         </a>
                                         <p>3 days, 20 hours ago</p>
                                     </div>
@@ -96,7 +94,7 @@
                                             <h4>Title by</h4>
                                         </a>
                                         <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Kati Burch</h5>
+                                            <h5><img src="/img/forum/r-topic-user.png" alt=""> Kati Burch</h5>
                                         </a>
                                         <p>1 month ago</p>
                                     </div>
@@ -112,7 +110,7 @@
                                             <h4>Green Planet by</h4>
                                         </a>
                                         <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Morris Ruiz</h5>
+                                            <h5><img src="/img/forum/r-topic-user.png" alt=""> Morris Ruiz</h5>
                                         </a>
                                         <p>1 week, 2 days ago</p>
                                     </div>

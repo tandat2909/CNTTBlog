@@ -38,6 +38,14 @@ Route::get('{category_url_rewrite}/posts',
         'uses'=> buildAction(\App\Http\Controllers\Catalog::class,'posts')
     ]
 );
+Route::get('posts/{post_url_rewrite}',
+    [
+        'as'=>'post_detail',
+        'uses'=> buildAction(\App\Http\Controllers\Catalog::class,'postDetail')
+    ]
+);
+
+
 
 Route::get('searchForum',
     [
@@ -48,4 +56,6 @@ Route::get('searchForum',
 Route::get("404",['as' => "404",'uses'=>buildAction(\App\Http\Controllers\RequestError::class,'page404')]);
 
 Auth::routes();
+
+
 

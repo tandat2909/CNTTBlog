@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Hashtag;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\RedirectResponse;
@@ -28,7 +30,18 @@ class Catalog extends AbstractController
             'label' => $objectCategory->title
         ]);
 
-
+        $this->addDataView('hashtags',Hashtag::all());
         return $this->getView('frontend.pages.posts');
+    }
+    public function postDetail(Request $request,$post_url_rewrite)
+    {
+        if(empty($post_url_rewrite)){
+            to_route('404');
+        }
+        $post = Post::searchByQuery(['match' => ['url_key' => $post_url_rewrite]])->first();
+        $this->addDataView('post' ,$post);
+
+        return $this->getView('frontend.pages.postdetail');
+
     }
 }

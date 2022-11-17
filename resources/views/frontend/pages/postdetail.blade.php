@@ -2,15 +2,15 @@
 
 
 @section('title')
-    {{$category->title.' - Posts'}}
+    {{$post->name.' - Posts'}}
 @endsection
 
 
 @section('body.wrapper.content')
 {{--    <h1>POST list {{$category->title}}</h1>--}}
 
-
-<section class="forum_sidebar_area" id="sticky_doc">
+{{$post->name}}
+{{--<section class="forum_sidebar_area" id="sticky_doc">
     <div class="container-fluid pl-60 pr-60">
         <div class="row">
             <div class="col-xl-2 d-none d-xl-block">
@@ -552,5 +552,5 @@
             </div>
         </div>
     </div>
-</section>
+</section>--}}
 @endsection

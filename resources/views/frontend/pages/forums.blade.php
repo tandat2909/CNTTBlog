@@ -66,7 +66,7 @@
                                             <div class="freshness-box">
                                                 <div class="freshness-top">
                                                     <div class="freshness-link">
-                                                        <a href="#" title="Reply To: Main Forum Rules &amp; Policies">2 years, 2 months ago</a>
+                                                        <a href="#" title="Reply To: Main Forum Rules &amp; Policies">{{ $category->updated_at->diffForHumans()}}</a>
                                                     </div>
                                                 </div>
                                                 <div class="freshness-btm">
@@ -146,23 +146,8 @@
                             </ul>
                         </div>
 
-                        <div class="widget tag_widget">
-                            <h4 class="c_head">Tags</h4>
-                            <ul class="list-unstyled w_tag_list style-light">
-                                <li><a href="#">Swagger</a></li>
-                                <li><a href="#">Docy</a></li>
-                                <li><a href="#">weCare</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">Download</a></li>
-                                <li><a href="#">Doc</a></li>
-                                <li><a href="#">Product board</a></li>
-                                <li><a href="#">WordPress</a></li>
-                                <li><a href="#">Design</a></li>
-                                <li><a href="#">ui/ux</a></li>
-                                <li><a href="#">Doc Design</a></li>
-                                <li><a href="#">DocAll</a></li>
-                            </ul>
-                        </div>
+{{--                        code tag--}}
+                         @include('frontend.includes.tag')
 
                     </div>
                 </div>

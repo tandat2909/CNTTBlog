@@ -14,7 +14,7 @@ class Category extends AbstractModel
 {
     protected $table = 'categorys';
     protected string $cacheTag = '_ca_';
-
+    protected $dates = ['updated_at', 'created_at'];
     protected $fillable = ['id' , 'parent_id' ,'title'  ,'metaTitle', 'url_rewrite'  ,'content'   ,'created_at' , 'updated_at' ];
 
     /**
@@ -32,14 +32,14 @@ class Category extends AbstractModel
             ->where('status',\App\Models\Post::STATUS_APPROVED)->count();
     }
 
-    public function getPostCollectionByStatus(string $status = Post::STATUS_APPROVED): BelongsToMany
+    public function getPostCollectionByStatus(string $status = Post::STATUS_APPROVED): \Illuminate\Database\Eloquent\Collection
     {
         if(!in_array($status,Post::STATUS))
         {
             throw new \Exception("Status doesn't exists");
         }
         return $this->Posts()->where('enabled',1)
-            ->where('status',$status);
+            ->where('status',$status)->get();
     }
 
     public function validateBeforeSave(array $data): bool

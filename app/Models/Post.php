@@ -52,7 +52,9 @@ class Post extends AbstractModel
             'analyzer' => 'standard'
         ]
         ];
-
+    protected  $dates = [
+        'created_at', 'updated_at'
+        ];
     protected $fillable = [
         'id', 'name', 'short_description', 'metaTitle', 'slug', 'status', 'post_content',
         'store_ids', 'image', 'views', 'enabled', 'url_key', 'allow_comment', 'created_at', 'updated_at', 'author_id',

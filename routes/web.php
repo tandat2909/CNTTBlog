@@ -25,12 +25,6 @@ Route::get('/', [
     'uses'=>buildAction(\App\Http\Controllers\Home::class, 'index')
 ]);
 
-Route::resource('roles', \App\Http\Controllers\Admin\Role::class);
-Route::get('admin/roles',
-    [
-        'as' => 'roles',
-        'uses' => buildAction(\App\Http\Controllers\Admin\Role::class, 'getAll')
-    ]);
 
 Route::get('{category_url_rewrite}/posts',
     [
@@ -44,6 +38,15 @@ Route::get('posts/{post_url_rewrite}',
         'uses'=> buildAction(\App\Http\Controllers\Catalog::class,'postDetail')
     ]
 );
+
+Route::post('posts/{post_url_rewrite}/comment',[
+    'as'=>'post_comment',
+    'uses'=> buildAction(\App\Http\Controllers\Catalog::class,'commentPost')
+]);
+Route::delete('comment/delete/{comment_id}',[
+    'as'=>'comment_delete',
+    'uses'=> buildAction(\App\Http\Controllers\Catalog::class,'commentDelete')
+]);
 
 
 Route::resource('frontend.pages.search', \App\Http\Controllers\Search::class);

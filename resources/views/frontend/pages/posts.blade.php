@@ -320,40 +320,41 @@
                             </ul>
                         </div>
                     </div>
+                    @php
+
+                        $page = request("p") ?? 0;
+                        $url = request()->getBasePath();
+                        $url = str_contains($url,'?') ?  $url."&" : $url."?";
+
+                    @endphp
+
                     <div class="row pagination_inner">
                         <div class="col-lg-2">
-                            <h6>Total: <span> 225 </span></h6>
+                            <h6>Total: <span> {{$totalPost}} </span></h6>
                         </div>
-                        <div class="col-lg-8">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item"><a class="page-link" href="#"><i
-                                                class="arrow_carrot-left"></i> Previous</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">21</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Next <i
-                                                class="arrow_carrot-right"></i></a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="col-lg-2">
-                            <div class="input-group go_btn">
-                                <input type="number" class="form-control" aria-label="Recipient's username">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button">Go</button>
-                                </div>
+                        @if($totalPost > $pageSize)
+                            <div class="col-lg-8">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item"><a class="page-link" href="{{$url."p=".($page == 0 ?0:$page -1)}}"><i
+                                                        class="arrow_carrot-left"></i> Previous</a></li>
+                                        @for( $i = 0 ; $i < round($totalPost/$pageSize) ;$i++)
+                                            <li class="page-item {{$i  == $page  ? 'active' :''}}"><a class="page-link" href="{{$url."p=$i"}}">{{$i +1 }}</a></li>
+                                        @endfor
+                                        <li class="page-item"><a class="page-link" href="{{$url."p=".($page > $totalPost ? $page +1 : $page)}}">Next <i
+                                                        class="arrow_carrot-right"></i></a></li>
+                                    </ul>
+                                </nav>
                             </div>
-                        </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4">
                 <div class="right_side_forum">
                     <aside class="r_widget qustion_wd">
-                        <button class="btn" type="button"><img src="img/forum/helpful-user/question-1.png"
+                        <button class="btn" type="button"><img src="/img/forum/helpful-user/question-1.png"
                                                                alt="">Ask Question <i class="arrow_carrot-right"></i></button>
                     </aside>
                     <aside class="r_widget user_list_wd">
@@ -367,7 +368,7 @@
                                     <div class="media">
                                         <div class="d-flex">
                                             <img class="rounded-circle"
-                                                 src="img/forum/helpful-user/h-user-1.png" alt="">
+                                                 src="/img/forum/helpful-user/h-user-1.png" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>cleo-parra</h4>
@@ -386,7 +387,7 @@
                                     <div class="media">
                                         <div class="d-flex">
                                             <img class="rounded-circle"
-                                                 src="img/forum/helpful-user/h-user-2.png" alt="">
+                                                 src="/img/forum/helpful-user/h-user-2.png" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>roy_marin</h4>
@@ -405,7 +406,7 @@
                                     <div class="media">
                                         <div class="d-flex">
                                             <img class="rounded-circle"
-                                                 src="img/forum/helpful-user/h-user-3.png" alt="">
+                                                 src="/img/forum/helpful-user/h-user-3.png" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>hellen.austin</h4>
@@ -424,7 +425,7 @@
                                     <div class="media">
                                         <div class="d-flex">
                                             <img class="rounded-circle"
-                                                 src="img/forum/helpful-user/h-user-4.png" alt="">
+                                                 src="/img/forum/helpful-user/h-user-4.png" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>erna.may</h4>
@@ -443,7 +444,7 @@
                                     <div class="media">
                                         <div class="d-flex">
                                             <img class="rounded-circle"
-                                                 src="img/forum/helpful-user/h-user-5.png" alt="">
+                                                 src="/img/forum/helpful-user/h-user-5.png" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>jacobson</h4>
@@ -462,7 +463,7 @@
                                     <div class="media">
                                         <div class="d-flex">
                                             <img class="rounded-circle"
-                                                 src="img/forum/helpful-user/h-user-6.png" alt="">
+                                                 src="/img/forum/helpful-user/h-user-6.png" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>van.mays</h4>
@@ -481,7 +482,7 @@
                                     <div class="media">
                                         <div class="d-flex">
                                             <img class="rounded-circle"
-                                                 src="img/forum/helpful-user/h-user-7.png" alt="">
+                                                 src="/img/forum/helpful-user/h-user-7.png" alt="">
                                         </div>
                                         <div class="media-body">
                                             <h4>steve_barr</h4>

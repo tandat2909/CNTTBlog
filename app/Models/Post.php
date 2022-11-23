@@ -16,7 +16,7 @@ class Post extends AbstractModel
     const STATUS_APPROVED = 'approved';
     const STATUS_DISAPPROVED = 'disapproved';
 
-    const STATUS = [self::STATUS_PENDING, self::STATUS_APPROVED, self::STATUS_DISAPPROVED];
+    const STATUS = [self::STATUS_PENDING => "Pending", self::STATUS_APPROVED => "Approved", self::STATUS_DISAPPROVED => "Disapproved"];
 
     protected $mappingProperties = [
         'name' => [
@@ -28,10 +28,6 @@ class Post extends AbstractModel
             "analyzer" => "standard",
         ],
         'metaTitle' => [
-            "type" => 'string',
-            "analyzer" => "standard",
-        ],
-        'slug' => [
             "type" => 'string',
             "analyzer" => "standard",
         ],
@@ -56,8 +52,8 @@ class Post extends AbstractModel
         'created_at', 'updated_at'
     ];
     protected $fillable = [
-        'id', 'name', 'short_description', 'metaTitle', 'slug', 'status', 'post_content',
-        'store_ids', 'image', 'views', 'enabled', 'url_key', 'allow_comment', 'created_at', 'updated_at', 'author_id',
+        'id', 'name', 'short_description', 'metaTitle', 'status', 'post_content',
+         'image', 'views', 'enabled', 'url_key', 'allow_comment', 'created_at', 'updated_at', 'author_id',
         'modifier_id', 'publish_date', 'banner_image', 'featured_image'
     ];
 
@@ -92,7 +88,7 @@ class Post extends AbstractModel
      * @param $value
      * @return HasMany
      */
-    public function CommentCollection($value = ''): HasMany
+    public function CommentCollection($value=''): HasMany
     {
         return $this->hasMany(PostComment::class, 'post_id');
     }
@@ -101,7 +97,7 @@ class Post extends AbstractModel
      * @param $value
      * @return BelongsToMany
      */
-    public function Hashtags($value = ''): BelongsToMany
+    public function Hashtags($value=''): BelongsToMany
     {
         return $this->belongsToMany(Hashtag::class, 'post_hashtag');
     }

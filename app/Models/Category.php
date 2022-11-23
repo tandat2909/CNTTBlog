@@ -2,13 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Events\Validated;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\AbstractModel;
-use App\Models\Post;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Validation\Rule;
 
 class Category extends AbstractModel
 {
@@ -32,9 +27,9 @@ class Category extends AbstractModel
             ->where('status',\App\Models\Post::STATUS_APPROVED)->count();
     }
 
-    public function getPostCollectionByStatus(string $status = Post::STATUS_APPROVED): \Illuminate\Database\Eloquent\Collection
+    public function getPostCollectionByStatus(string $status = Post::STATUS_APPROVED): Collection
     {
-        if(!in_array($status,Post::STATUS))
+        if(!array_key_exists($status,Post::STATUS))
         {
             throw new \Exception("Status doesn't exists");
         }

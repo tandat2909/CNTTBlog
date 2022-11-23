@@ -6,13 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "cweagans/composer-patches": "^1.7",
+        "elasticquent/elasticquent": "dev-master",
+        "encore/laravel-admin": "^1.8",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel-admin-ext/log-viewer": "^1.0",
+        "laravel-admin-ext/media-manager": "2.x",
         "laravel/breeze": "^1.14",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^4.0",
-        "elasticquent/elasticquent": "dev-master"
+        "laravel/ui": "^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -53,6 +57,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "patches": {
+            "laravel-admin-ext/media-manager": {
+                "Fix Error cannot getAdapter" :"patches/composer/media-manager/fix-error-cannot-getAdapter.patch"
+            }
         }
     },
     "config": {
@@ -60,7 +69,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "cweagans/composer-patches": true
         }
     },
     "minimum-stability": "dev",

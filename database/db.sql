@@ -63,6 +63,7 @@ create table if not exists users
     name varchar(255) not null,
     email varchar(255) not null,
     email_verified_at timestamp null,
+    avatar varchar(300) null ,
     firstName VARCHAR(50) NULL DEFAULT NULL,
     middleName VARCHAR(50) NULL DEFAULT NULL,
     lastName VARCHAR(50) NULL DEFAULT NULL,
@@ -71,8 +72,8 @@ create table if not exists users
     profile TEXT NULL DEFAULT NULL,
     password varchar(255) not null,
     remember_token varchar(100) null,
-    created_at timestamp null,
-    updated_at timestamp null,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     enabled TINYINT NOT NULL DEFAULT 1,
     constraint users_email_unique
     unique (email)
@@ -85,8 +86,8 @@ create table if not exists `CNTTBlog`.`roles` (
     `slug` VARCHAR(100) NOT NULL,
     `description` TINYTEXT NULL,
     `active` TINYINT(1) NOT NULL DEFAULT 0,
-    `created_at` timestamp NOT NULL,
-    `updated_at` timestamp NULL DEFAULT NULL,
+    `created_at` timestamp NOT NUll DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `content` TEXT NULL DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `uq_slug` (`slug` ASC)
@@ -100,8 +101,8 @@ create table if not exists `CNTTBlog`.`permissions` (
     `slug` VARCHAR(100) NOT NULL,
     `description` TINYTEXT NULL,
     `active` TINYINT(1) NOT NULL DEFAULT 0,
-    `created_at` timestamp NOT NULL,
-    `updated_at` timestamp NULL DEFAULT NULL,
+    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `content` TEXT NULL DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `uq_slug` (`slug` ASC)
@@ -109,11 +110,11 @@ create table if not exists `CNTTBlog`.`permissions` (
 
 
 create table if not exists `CNTTBlog`.`role_permissions` (
-                                                             `role_id` int NOT NULL AUTO_INCREMENT,
-                                                             `permission_id` int NOT NULL,
-                                                             `created_at` timestamp NOT NULL,
-                                                             `updated_at` timestamp NULL,
-                                                             PRIMARY KEY (`role_id`, `permission_id`),
+     `role_id` int NOT NULL AUTO_INCREMENT,
+     `permission_id` int NOT NULL,
+     `created_at` timestamp NOT NULL,
+     `updated_at` timestamp NULL,
+     PRIMARY KEY (`role_id`, `permission_id`),
     INDEX `idx_rp_role` (`role_id` ASC),
     INDEX `idx_rp_permissions` (`permission_id` ASC),
     CONSTRAINT `fk_rp_role`
@@ -146,7 +147,6 @@ create table if not exists `CNTTBlog`.`posts` (
                                                   `name` varchar(255) DEFAULT NULL COMMENT 'Post Name',
     `short_description` mediumtext COMMENT 'Post Short Description',
     `metaTitle` VARCHAR(100) NULL,
-    `slug` VARCHAR(100) NOT NULL,
     `status` VARCHAR(100) not null default 'pending',
     `post_content` mediumtext COMMENT 'Post Content',
     `image` varchar(255) DEFAULT NULL COMMENT 'Post Image',
@@ -163,7 +163,7 @@ create table if not exists `CNTTBlog`.`posts` (
     `featured_image` text COMMENT 'featured_image',
 
     PRIMARY KEY (`id`),
-    UNIQUE INDEX `uq_slug` (`slug` ASC),
+    UNIQUE INDEX `uq_slug` (`url_key` ASC),
     INDEX `idx_post_user` (`author_id` ASC),
     INDEX `idx_post_url_key` (`url_key` ASC),
     CONSTRAINT `fk_post_user`
@@ -181,16 +181,13 @@ create table if not exists `CNTTBlog`.`posts` (
 
 
 create table if not exists `CNTTBlog`.`post_comments` (
-                                                          `id` int NOT NULL AUTO_INCREMENT,
-                                                          `post_id` int unsigned NOT NULL,
-                                                          `parent_id` int NULL DEFAULT NULL,
-                                                          `user_id` int unsigned NOT NULL,
-                                                          `title` VARCHAR(100) NOT NULL,
-    `published` TINYINT(1) NOT NULL DEFAULT 0,
+      `id` int NOT NULL AUTO_INCREMENT,
+      `post_id` int unsigned NOT NULL,
+      `parent_id` int NULL DEFAULT NULL,
+      `user_id` int unsigned NOT NULL,
     `enabled` TINYINT NOT NULL DEFAULT 1,
     `created_at` timestamp NOT NULL,
     `updated_at` timestamp NULL DEFAULT NULL,
-    `published_at` timestamp NULL DEFAULT NULL,
     `content` TEXT NULL DEFAULT NULL,
     PRIMARY KEY (`id`),
     INDEX `idx_comment_post` (`post_id` ASC),

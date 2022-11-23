@@ -66,7 +66,7 @@
                                             <div class="freshness-box">
                                                 <div class="freshness-top">
                                                     <div class="freshness-link">
-                                                        <a href="#" title="Reply To: Main Forum Rules &amp; Policies">{{ $category->updated_at->diffForHumans()}}</a>
+                                                        <a href="#" title="Reply To: Main Forum Rules &amp; Policies">{{ $category->updated_at ? $category->updated_at->diffForHumans():""}}</a>
                                                     </div>
                                                 </div>
                                                 <div class="freshness-btm">

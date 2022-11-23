@@ -287,6 +287,27 @@ create table if not exists `CNTTBlog`.`post_hashtag`(
     ) collate=utf8mb4_unicode_ci;
 
 
+create table if not exists `CNTTBlog`.`post_likes` (
+      `post_id` int unsigned NOT NULL,
+      `user_id` int unsigned NOT NULL,
+      `is_like` TINYINT NOT NULL DEFAULT 1,
+      `created_at` timestamp NOT NULL,
+      `updated_at` timestamp NULL DEFAULT NULL,
+      PRIMARY KEY (`post_id`,`user_id`),
+      CONSTRAINT `fk_likes_post`
+          FOREIGN KEY (`post_id`)
+              REFERENCES `CNTTBlog`.`posts` (`id`)
+              ON DELETE NO ACTION
+              ON UPDATE NO ACTION,
+      CONSTRAINT `fk_likes_user`
+          FOREIGN KEY (`user_id`)
+              REFERENCES `CNTTBlog`.`users` (`id`)
+              ON DELETE NO ACTION
+              ON UPDATE NO ACTION
+
+) collate=utf8mb4_unicode_ci;
+
+
 
 
 

@@ -92,7 +92,7 @@ class Post extends AbstractModel
      * @param $value
      * @return HasMany
      */
-    public function CommentCollection($value): HasMany
+    public function CommentCollection($value = ''): HasMany
     {
         return $this->hasMany(PostComment::class, 'post_id');
     }
@@ -101,11 +101,19 @@ class Post extends AbstractModel
      * @param $value
      * @return BelongsToMany
      */
-    public function Hashtags($value): BelongsToMany
+    public function Hashtags($value = ''): BelongsToMany
     {
         return $this->belongsToMany(Hashtag::class, 'post_hashtag');
     }
 
+    /**
+     * @param $value
+     * @return HasMany
+     */
+    public function LikeCollection($value = ''): HasMany
+    {
+        return $this->hasMany(PostLike::class, 'post_id')->where('is_like',1);
+    }
 
 }
 

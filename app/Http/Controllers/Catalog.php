@@ -71,7 +71,7 @@ class Catalog extends AbstractController
             return $this->getView('frontend.pages.postdetail');
         }
         return to_route("404");
-
-
     }
+
+    
 }

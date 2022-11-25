@@ -1,6 +1,7 @@
 <?php
 
 use App\Admin\Controllers\CategoryController;
+use App\Admin\Controllers\HashtagController;
 use App\Admin\Controllers\PermissionController;
 use App\Admin\Controllers\PostCommentController;
 use App\Admin\Controllers\PostController;
@@ -26,4 +27,6 @@ Route::group([
     $router->resource('categories', CategoryController::class);
     $router->resource('post-comments', PostCommentController::class);
     $router->resource('auth/users', UserAdminController::class);
+    $router->resource('hashtags', HashtagController::class);
+
 });

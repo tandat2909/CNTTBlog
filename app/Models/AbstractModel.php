@@ -15,7 +15,6 @@ abstract class AbstractModel extends Model
 
     protected string $cacheTag = 'md';
 
-    public $exists = true;
 
     protected int $limit = 10;
 

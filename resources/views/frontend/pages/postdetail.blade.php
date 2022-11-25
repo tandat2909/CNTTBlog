@@ -28,6 +28,7 @@
         transform: scale(1.8);
     }
 </style>
+
 <section class="doc_blog_grid_area sec_pad forum-single-content">
     <div class="container">
         <div class="row">
@@ -37,7 +38,7 @@
                     <div class="col-lg-9">
                         <div class="forum-post-top">
                             <a class="author-avatar" href="#">
-                                <img src="{{$post->Author->intro}}" alt="">
+                                <img src="{{$post->Author->avatar}}" alt="">
                             </a>
                             <div class="forum-post-author">
                                 <a class="author-name" href="#"> {{$post->Author->name}}  </a>
@@ -85,7 +86,7 @@
 {{--                            <i class="icon_tags_alt"></i> <p>5</p>--}}
 {{--                            <p class="count" href="#"><ion-icon name="heart-outline"></ion-icon> 5</p>--}}
 
-                            <div class="col-auto  example-block"><img class="image" src="https://img.icons8.com/color/48/null/hearts.png"  alt="Smiling Face With Heart-Eyes" title="Smiling Face With Heart-Eyes" width="30" height="30"><span style="font-size: 15px; position: absolute; top: 2.5px">{{$post->LikeCollection->count()}}</span></div>
+                            <div class="col-auto  example-block" id="action-like"><img class="image" src="https://img.icons8.com/color/48/null/hearts.png"  alt="Smiling Face With Heart-Eyes" title="Smiling Face With Heart-Eyes" width="30" height="30"><span class="like-number" style="font-size: 15px; position: absolute; top: 2.5px">{{$post->LikeCollection->count()}}</span></div>
                             <div class="col-auto  example-block"><img class="image" src="https://img.icons8.com/ios/50/null/hearts--v1.png"  alt="Smiling Face With Heart-Eyes" title="Smiling Face With Heart-Eyes" width="30" height="30"><span style="font-size: 15px; position: absolute; top: 2.5px">10</span></div>
                         </div>
                     </div>
@@ -327,4 +328,32 @@
         </div>
     </div>
 </section>
+@endsection
+@section('footer.scripts')
+    @parent
+    <script>
+        $("#action-like").click(function (e) {
+            $.ajax({url: "{{URL::route('post_like',['post_url_rewrite' => $post->url_key])}}", success: function(result){
+
+                        console.log(result)
+                let element = $('.like-number',e.currentTarget);
+                let number = element.text();
+                if(result?.like === true){
+                    element.text(++number);
+                }
+                else
+                {
+                  number = number-1 < 0 ? 0:number-1;
+                  element.text(number);
+                }
+            },
+           error: function (res){
+                let url = res.responseJSON?.url_login
+                if(url){
+                    window.location.href = url
+                }
+            }}
+            );
+        })
+    </script>
 @endsection

@@ -6,10 +6,12 @@ use App\Models\Category;
 use App\Models\Hashtag;
 use App\Models\Post;
 use App\Models\PostComment;
+use App\Models\PostLike;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
-use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class Catalog extends AbstractController
 {
@@ -121,4 +123,26 @@ class Catalog extends AbstractController
         return back();
 
     }
+
+//   handle action Like of post
+    public function handleOnBtnLike(Request $request,$post_url_rewrite)
+    {
+        $post = $this->getPost($post_url_rewrite);
+        $user = Auth::user();
+        if($user){
+
+            $like = PostLike::where("post_id",$post->id)->where("user_id",$user->id);
+            $isLike = $like->first() ? !$like->first()->is_like :0;
+            $like->updateOrCreate([
+                'user_id' => $user->id,
+                'post_id' => $post -> id
+            ],[
+                'is_like' => $isLike,
+            ]);
+            return response()->json(["like"=>$isLike]);
+        } else {
+            return  response()->json(["url_login"=>URL::route('login')],500);
+        }
+    }
+
 }

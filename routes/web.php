@@ -56,6 +56,11 @@ Route::get('searchForum',
         'uses' => buildAction(\App\Http\Controllers\Search::class, 'searchForum')
     ]);
 
+//Router Like
+Route::get('posts/{post_url_rewrite}/like',[
+    'as'=>'post_like',
+    'uses'=> buildAction(\App\Http\Controllers\Catalog::class,'handleOnBtnLike')
+]);
 Route::get("404",['as' => "404",'uses'=>buildAction(\App\Http\Controllers\RequestError::class,'page404')]);
 
 Auth::routes();

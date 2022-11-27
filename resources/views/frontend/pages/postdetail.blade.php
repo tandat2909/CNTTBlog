@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="action-button-container">
-                                <a href="#" class="action_btn btn-ans ask-btn">Ask Question</a>
+                                <button style="border: none" type="button" data-toggle="modal" data-target="#exampleModal" class="action_btn btn-ans ask-btn">Ask Question</button>
                             </div>
                         </div>
                     </div>
@@ -105,10 +105,9 @@
                         <div class="post-comment" id="comment-${commentId}">
                             <form action="{{URL::route('post_comment',['post_url_rewrite' => $post->url_key])}}" id="form-comment-post-id"  onsubmit="return false;">
                                 {{csrf_field()}}
-                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea" id="form-comment-post-id-textbox"></textarea></div>
+                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{$currentUser->avatar}}" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea" id="form-comment-post-id-textbox"></textarea></div>
                                 <div class="mt-2 text-right">
                                     <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
-                                    <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
                                 </div>
                             </form>
                         </div>
@@ -117,109 +116,9 @@
                     <!-- All answer -->
                     <div class="all-answers" id="comments">
                        @include('frontend.includes.viewcomments')
-                        <div class="pagination-wrapper">
-                            <div class="view-post-of">
-                                <p>Viewing 4 Comments - 1 through 10 (of 96 total)</p>
-                            </div>
-                            <ul class="post-pagination">
-                                <li class="prev-post pegi-disable"><a href="#"><i class="arrow_carrot-left"></i></a>
-                                </li>
-                                <li><a href="#" class="active">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">15</a></li>
-                                <li class="next-post"><a href="#"><i class="arrow_carrot-right"></i></a></li>
-                            </ul>
-                        </div>
-
                     </div>
                 </div>
-                <!-- /.col-lg-8 -->
-
-                <div class="col-lg-3">
-                    <div class="forum_sidebar">
-                        <div class="widget status_widget">
-                            <h4 class="c_head">Information</h4>
-                            <p class="status">Support is <span class="offline">Offline</span></p>
-                            <div class="open-hours">
-                                <h4 class="title-sm">Our office hours</h4>
-                                <p>
-                                    Monday - Friday / 10am - 6pm (UTC +4) NewYork
-                                </p>
-                                <ul class="current-time list-unstyled">
-                                    <li>
-                                        <h4 class="title-sm">Your time</h4>
-                                        <p>10:30:15 PM</p>
-                                    </li>
-                                    <li>
-                                        <h4 class="title-sm">Your time</h4>
-                                        <p>10:30:15 PM</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /.open-hours -->
-                        </div>
-
-                        <div class="widget usefull_links_widget">
-                            <h4 class="c_head">Usefull Links</h4>
-
-                            <ul class="list-unstyled usefull-links">
-                                <li><i class="icon_lightbulb_alt"></i><a href="#">FAQs</a></li>
-                                <li><i class="icon_clock_alt"></i><a href="#">Popular</a></li>
-                                <li><i class="icon_piechart"></i><a href="#">Recent</a></li>
-                                <li><i class="icon_info_alt"></i><a href="#">Unanswered</a></li>
-                            </ul>
-                        </div>
-                        <div class="widget ticket_widget">
-                            <h4 class="c_head">Ticket Categories</h4>
-
-                            <ul class="list-unstyled ticket_categories">
-                                <li><img src="img/home_support/cmm5.png" alt="category">
-                                    <a href="#">Docs WordPress Theme</a> <span class="count">10</span>
-                                </li>
-                                <li><img src="img/home_support/cmm4.png" alt="category">
-                                    <a href="#">Product Landing</a>
-                                    <span class="count count-fill">13</span>
-                                    <span class="count">54</span>
-                                </li>
-                                <li><img src="img/home_support/cmm2.png" alt="category">
-                                    <a href="#">Knowledge Base</a><span class="count">142</span>
-                                </li>
-                                <li><img src="img/home_support/cmm8.png" alt="category">
-                                    <a href="#">Startup and App</a> <span class="count">13</span>
-                                </li>
-                                <li><img src="img/home_support/cmm9.png" alt="category">
-                                    <a href="#">Clean Email Template</a> <span class="count">123</span>
-                                </li>
-                                <li><img src="img/home_support/cmm10.png" alt="category">
-                                    <a href="#">Apps WordPress Theme</a> <span class="count">18</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="widget tag_widget">
-                            <h4 class="c_head">Tags</h4>
-                            <ul class="list-unstyled w_tag_list style-light">
-                                <li><a href="#">Swagger</a></li>
-                                <li><a href="#">Docy</a></li>
-                                <li><a href="#">weCare</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">Download</a></li>
-                                <li><a href="#">Doc</a></li>
-                                <li><a href="#">WordPress</a></li>
-                                <li><a href="#">Design</a></li>
-                                <li><a href="#">ui/ux</a></li>
-                                <li><a href="#">Doc Design</a></li>
-                                <li><a href="#">DocAll</a></li>
-                                <li><a href="#">Productboard</a></li>
-                                <li><a href="#">Magento</a></li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- /.col-lg-4 -->
+                @include('frontend.includes.information')
             </div>
         </div>
     </section>
@@ -263,10 +162,9 @@
                         <form action="${url}" id="form-comment-${commentId}"  onsubmit="return false;">
                             {{csrf_field()}}
                 <input type="hidden" name="parent_id" value="${commentId}" />
-                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea"></textarea></div>
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{$currentUser->avatar}}" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea"></textarea></div>
                             <div class="mt-2 text-right">
                                 <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
-                                <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button>
                             </div>
                      </form>
                     </div>`)
@@ -309,6 +207,5 @@
             });
         });
     </script>
-
-
+@include("frontend.includes.createpost")
 @endsection

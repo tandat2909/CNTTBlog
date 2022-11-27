@@ -356,9 +356,12 @@
             <div class="col-xl-3 col-lg-4">
                 <div class="right_side_forum">
                     <aside class="r_widget qustion_wd">
-                        <button class="btn" type="button"><img src="/img/forum/helpful-user/question-1.png"
-                                                               alt="">Ask Question <i class="arrow_carrot-right"></i></button>
+                        <button class="btn" type="button"  data-toggle="modal" data-target="#exampleModal">
+                            <img src="/img/forum/helpful-user/question-1.png"  alt="">Ask Question <i class="arrow_carrot-right"></i>
+                        </button>
                     </aside>
+
+
                     <aside class="r_widget user_list_wd">
                         <div class="r_heading d-flex justify-content-between">
                             <h3>Most Helpful</h3>
@@ -556,4 +559,6 @@
         </div>
     </div>
 </section>
+@include("frontend.includes.createpost")
 @endsection
+

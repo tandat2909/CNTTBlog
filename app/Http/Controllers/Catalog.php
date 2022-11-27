@@ -63,6 +63,9 @@ class Catalog extends AbstractController
             $this->addDataView('post', $post);
             $post->update(["views" => $post->views + 1]);
             $post->addToIndex();
+            $this->addDataView('hashtags',Hashtag::all());
+            $user = Auth::user();
+            $this->addDataView('currentUser',$user);
             return $this->getView('frontend.pages.postdetail');
         }
         return to_route("404");

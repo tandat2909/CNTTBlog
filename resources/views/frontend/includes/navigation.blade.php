@@ -1,12 +1,15 @@
 <nav class="navbar navbar-expand-lg menu_one dark_menu sticky-nav">
     <div class="container                                                                                                                                      ">
-        <a class="navbar-brand header_logo" href="index.html">
+        <a class="navbar-brand header_logo" href="/">
             <img class="first_logo sticky_logo main_logo" src="/img/logo.png" srcset="/img/logo-2x.png 2x" alt="logo">
             <img class="white_logo" src="/img/logo-w.png" srcset="/img/logo-w2x.png 2x" alt="logo">
         </a>
         <div class="search-input">
             <ion-icon class="search-icon" name="search-outline"></ion-icon>
-            <input type="text" placeholder="Search..." value="" class="">
+            <form action="{{URL::route('searchForum')}}">
+                <input type="text" placeholder="Search..." name="search" value="{{request("search")}}" class="">
+            </form>
+
         </div>
         <div class="mobile-dark-mode d-lg-none">
             <label for="something" class="tab-btn tab-btns">

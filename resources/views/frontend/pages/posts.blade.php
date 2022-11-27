@@ -308,8 +308,10 @@
                                                         </div>
                                                     </li>
                                                 </ul>
-                                                <a class="count" href="#"><ion-icon name="heart-outline"></ion-icon> 5</a>
-                                                <a class="count" href="#"><ion-icon name="chatbubbles-outline"></ion-icon> 70</a>
+                                                <a class="count" href="#"><ion-icon name="heart-outline"></ion-icon>
+                                                    {{$post->LikeCollection->count()}}</a>
+                                                <a class="count" href="{{URL::route("post_detail",["post_url_rewrite" => $post->url_key ])}}#comments"><ion-icon name="chatbubbles-outline"></ion-icon>
+                                                    {{$post->CommentCollection->count()}}</a>
                                                 <a class="count" href="#"><ion-icon name="eye-outline"></ion-icon> {{$post->views ?? 0}}</a>
                                             </div>
                                         </div>

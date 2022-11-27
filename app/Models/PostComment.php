@@ -9,6 +9,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PostComment extends AbstractModel
 {
 
+    protected $fillable = [
+        "id",
+        "post_id",
+        "parent_id",
+        "user_id",
+        "enabled",
+        "created_at",
+        "updated_at",
+        "content",
+    ];
+    protected $dates = [  "created_at",
+        "updated_at",];
+
+
     /**
      * @param $value
      * @return BelongsTo

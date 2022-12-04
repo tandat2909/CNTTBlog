@@ -106,24 +106,24 @@
                                             </form>
                                             <div class="all_users scroll">
                                                 <a class="dropdown-item" href="#"><img
-                                                        src="img/forum/filter-user-1.png" alt=""> Donny
+                                                        src="/img/forum/filter-user-1.png" alt=""> Donny
                                                     Peters</a>
                                                 <a class="dropdown-item" href="#"><img
-                                                        src="img/forum/filter-user-2.png" alt="">Linh Knapp</a>
+                                                        src="/img/forum/filter-user-2.png" alt="">Linh Knapp</a>
                                                 <a class="dropdown-item" href="#"><img
-                                                        src="img/forum/filter-user-3.png" alt="">Albert
+                                                        src="/img/forum/filter-user-3.png" alt="">Albert
                                                     Roach</a>
                                                 <a class="dropdown-item" href="#"><img
-                                                        src="img/forum/filter-user-4.png" alt="">Kristin
+                                                        src="/img/forum/filter-user-4.png" alt="">Kristin
                                                     Larsen</a>
                                                 <a class="dropdown-item" href="#"><img
-                                                        src="img/forum/filter-user-5.png" alt="">Ernest
+                                                        src="/img/forum/filter-user-5.png" alt="">Ernest
                                                     Patton</a>
                                                 <a class="dropdown-item" href="#"><img
-                                                        src="img/forum/filter-user-2.png" alt="">Linh Knapp
+                                                        src="/img/forum/filter-user-2.png" alt="">Linh Knapp
                                                     Patton</a>
                                                 <a class="dropdown-item" href="#"><img
-                                                        src="img/forum/filter-user-1.png" alt="">Donny
+                                                        src="/img/forum/filter-user-1.png" alt="">Donny
                                                     Peters</a>
                                             </div>
                                         </div>

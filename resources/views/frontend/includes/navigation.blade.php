@@ -40,13 +40,14 @@
                 </li>
 
                 <li class="nav-item dropdown submenu">
-                    <a class="nav-link dropdown-toggle" href="forums.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Forum
                     </a>
                     <i class="arrow_carrot-down_alt2 mobile_dropdown_icon" aria-hidden="false"
                        data-toggle="dropdown"></i>
                     <ul class="dropdown-menu">
-                        @foreach($categories as $category)
+
+                        @foreach(\App\Models\Category::where('enabled',1)->get() as $category)
                             <li class="nav-item"><a href="{{URL::route('catalog_posts',['category_url_rewrite'=>$category->url_rewrite])}}" class="nav-link">{{$category->title}}</a></li>
                         @endforeach
 
@@ -74,6 +75,11 @@
                         <i class="arrow_carrot-down_alt2 mobile_dropdown_icon" aria-hidden="false" data-toggle="dropdown"></i>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
+                                <a  class="nav-link"  href="{{URL::route('user',['profile' => Auth::user()->profile ?? '#'])}}">
+                                    {{ __('Profile') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a  class="nav-link"  href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
@@ -84,6 +90,7 @@
                                 </form>
 
                             </li>
+
                         </ul>
                     </li>
                 @endguest

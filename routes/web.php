@@ -79,6 +79,11 @@ Route::post("post/create",[
     "uses" => buildAction(\App\Http\Controllers\PostController::class,"createPost")
 ]);
 
+Route::get('profile/{profile}',[
+    'as' => 'user',
+    'uses' => buildAction(\App\Http\Controllers\User::class,"profile")
+]);
+
 
 
 

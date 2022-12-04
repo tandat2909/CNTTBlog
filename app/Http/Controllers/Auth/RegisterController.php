@@ -7,6 +7,7 @@ use App\Models\Role as RoleModule;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -67,13 +68,17 @@ class RegisterController extends Controller
     public function create(array $data)
     {
         $roleUser = RoleModule::where('slug','user')->first();
+        $name = $data['lastName'].$data['middleName'].$data['firstName'];
         return User::create([
             'name' => $data['lastName'].$data['middleName'].$data['firstName'],
             'lastName' => $data['lastName'],
             'firstName' => $data['firstName'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role_id' => $roleUser->id
+            'role_id' => $roleUser->id,
+            'avatar' => $data['avatar'] ?? '/img/circled-user-male.png',
+            'profile' => $data['profile'] ?? str_replace(' ','-',$name),
+            'lastLogin' => Carbon::now()
         ]);
     }
 }

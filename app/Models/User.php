@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -68,13 +69,27 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function PostCollection (): HasMany
+    public function PostCollection ($value=''): HasMany
     {
-        return $this->hasMany(Post::class,'author_id');
+        $user = Auth::user();
+        $posts = $this->hasMany(Post::class,'author_id');
+        if($user && $this->id === $user->id){
+            return $posts;
+        }
+        return $posts->where('status',Post::STATUS_APPROVED);
     }
 
-    public function CommentCollection($value ): HasMany
+    public function countPost(): int
     {
-        return $this->hasMany(PostComment::class,'author_id');
+        return $this->PostCollection()->count();
+    }
+
+    public function CommentCollection($value =''): HasMany
+    {
+        return $this->hasMany(PostComment::class,'user_id');
+    }
+    public function countComment(): int
+    {
+        return $this->CommentCollection()->count();
     }
 }

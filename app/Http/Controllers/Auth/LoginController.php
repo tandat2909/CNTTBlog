@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
@@ -51,6 +52,8 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        $user->setAttribute('lastLogin',Carbon::now());
+        $user->save();
         return redirect(session('url.intended'));
     }
 }

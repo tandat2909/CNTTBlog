@@ -72,14 +72,14 @@
                 </div>
                 <div class="forum-post-content">
                     <div class="content">
-                        <p>{{ $post->post_content}}</p>
+                        <?= $post->post_content ?>
                     </div>
                     <div class="forum-post-btm">
                         <div class="taxonomy forum-post-tags">
                             <i class="icon_tags_alt"></i>
                             @foreach($post->Hashtags as $tagOfPost)
-                            <a href="#">{{$tagOfPost->title}}</a>
-                            {{$loop->index !== $post->Hashtags->count() - 1 ? "," : ""}}
+                                <a href="#">{{$tagOfPost->title}}</a>
+                                {{$loop->index !== $post->Hashtags->count() - 1 ? "," : ""}}
                             @endforeach
                         </div>
                         <div class="taxonomy forum-post-cat">

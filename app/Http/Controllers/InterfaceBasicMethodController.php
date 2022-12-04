@@ -14,5 +14,5 @@ interface InterfaceBasicMethodController
 
     public function search($keyword);
 
-    public function checkPermission(string $method):bool;
+    public function checkPermission(string $action):bool;
 }

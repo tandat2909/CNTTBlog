@@ -16,7 +16,16 @@ class Post extends AbstractModel
     const STATUS_APPROVED = 'approved';
     const STATUS_DISAPPROVED = 'disapproved';
 
-    const STATUS = [self::STATUS_PENDING => "Pending", self::STATUS_APPROVED => "Approved", self::STATUS_DISAPPROVED => "Disapproved"];
+    const STATUS = [
+        self::STATUS_PENDING => "Pending",
+        self::STATUS_APPROVED => "Approved",
+        self::STATUS_DISAPPROVED => "Disapproved"
+    ];
+    const STATUS_COLOR = [
+        self::STATUS_PENDING => "yellow",
+        self::STATUS_APPROVED => "green",
+        self::STATUS_DISAPPROVED => "red"
+    ];
 
     protected $mappingProperties = [
         'name' => [
@@ -110,6 +119,16 @@ class Post extends AbstractModel
     {
         return $this->hasMany(PostLike::class, 'post_id')->where('is_like',1);
     }
+
+    public function save(array $options = [])
+    {
+        if (parent::save($options)){
+           $this->addToIndex();
+            return true;
+        }
+        return false;
+    }
+
 
 }
 

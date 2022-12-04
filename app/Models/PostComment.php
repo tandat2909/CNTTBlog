@@ -9,6 +9,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PostComment extends AbstractModel
 {
 
+    protected $fillable = [
+        'id',
+        'post_id',
+        'parent_id',
+        'user_id,',
+        'created_at',
+        'updated_at',
+        'content'
+    ];
+
     /**
      * @param $value
      * @return BelongsTo
@@ -30,6 +40,5 @@ class PostComment extends AbstractModel
     public function CommentChild($value=''){
         return $this->hasMany(PostComment::class,'parent_id');
     }
-
 
 }

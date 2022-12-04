@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Permission;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Database\Eloquent\Model;
@@ -48,7 +49,7 @@ abstract class AbstractController extends BaseController implements InterfaceBas
                 return parent::callAction($method, $parameters);
             }
         }
-       return redirect()->route('404');
+       return redirect()->route("login");
 
     }
 
@@ -60,7 +61,7 @@ abstract class AbstractController extends BaseController implements InterfaceBas
         $array = explode('\\', get_class($this));
         $controller =  array_pop($array);
         $this->addBreadcrumb($controller,[
-                'label'=>$controller,
+                'label'=>str_replace(['Controller','controller'],'',$controller),
                 'link' => URL::route('index')
             ]
         );
@@ -215,6 +216,7 @@ abstract class AbstractController extends BaseController implements InterfaceBas
     {
         $instance = $this->classModel::create($data);
         $instance->addToIndex();
+        return $instance;
 
     }
 
@@ -239,23 +241,16 @@ abstract class AbstractController extends BaseController implements InterfaceBas
         return 'please implement method that';
     }
 
-    public function checkPermission(string $method): bool
+    public function checkPermission(string $action): bool
     {
-        if(array_key_exists($method,$this->requirePermissionAction))
+        if(array_key_exists($action,$this->requirePermissionAction))
         {
-            $permissionRequire = $this->requirePermissionAction[$method];
+            $permissionRequire = $this->requirePermissionAction[$action];
             if(empty($permissionRequire)) return true;
             $user = Auth::user();
             if($user){
-                $permissionRole = $user->role->permisstions->filter(function ($permission){
-                    return $permission->active == true;
-                })->all();
-                foreach ( $permissionRequire  as $item) {
-                    if(!in_array($item,$permissionRole)){
-                        return false;
-                    }
-                }
-                return true;
+                $permissionRole = $user->role->permisstions->whereIn("slug",$permissionRequire);
+                return $permissionRole->count() === count($permissionRequire);
             }
             return false;
 
@@ -273,6 +268,7 @@ abstract class AbstractController extends BaseController implements InterfaceBas
             }
             return false;
         }
+
         return true;
     }
 
@@ -310,6 +306,7 @@ abstract class AbstractController extends BaseController implements InterfaceBas
         {
             $template = $this->template.($useTemplateDetail? $this->symbolTemplate.$this->templateDetail:'');
         }
+        $this->addDataView('categories',Category::where("enabled",1)->get());
         $this->addDataView('breadcrumbs',$this->getBreadcrumbs());
         return view($template,$this -> dataView);
     }

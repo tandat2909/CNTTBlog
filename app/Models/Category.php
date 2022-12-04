@@ -46,6 +46,10 @@ class Category extends AbstractModel
         }
         throw new \Exception('Data exists');
     }
+    public static function CategoriesCollection($columns = ['*'])
+    {
+        return parent::all($columns = ['*'])->where("enabled",1);
+    }
 
 }
 

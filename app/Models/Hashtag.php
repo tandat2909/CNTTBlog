@@ -18,6 +18,10 @@ class Hashtag extends AbstractModel
         return $this->belongsToMany(Post::class,'post_hashtag');
     }
 
+    public static function HashtagCollection($columns = ['*'])
+    {
+        return parent::all($columns = ['*'])->where("enabled",1);
+    }
 
 
 

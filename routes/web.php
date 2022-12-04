@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -61,9 +62,24 @@ Route::get('posts/{post_url_rewrite}/like',[
     'as'=>'post_like',
     'uses'=> buildAction(\App\Http\Controllers\Catalog::class,'handleOnBtnLike')
 ]);
-Route::get("404",['as' => "404",'uses'=>buildAction(\App\Http\Controllers\RequestError::class,'page404')]);
+Route::get("404",['as' => "404",'uses'=> buildAction(\App\Http\Controllers\RequestError::class,'page404')]);
 
 Auth::routes();
+
+
+Route::resource("frontend.pages.postcreate",\App\Http\Controllers\PostController::class);
+
+Route::get("post/create",[
+    "as"=>"post_create_form",
+    "uses" => buildAction(\App\Http\Controllers\PostController::class,"createPost")
+]);
+
+Route::post("post/create",[
+    "as"=>"post_create",
+    "uses" => buildAction(\App\Http\Controllers\PostController::class,"createPost")
+]);
+
+
 
 
 

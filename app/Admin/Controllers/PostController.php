@@ -44,12 +44,16 @@ class PostController extends AdminController
         $grid->column('publish_date', __('Publish date'));
 
         $grid->column('status', __('Status'))->display(function ($status){
-            if(array_key_exists($status,Post::STATUS))
-                return Post::STATUS[$status];
+
+            if(array_key_exists($status,Post::STATUS)) {
+                $color = Post::STATUS_COLOR[$status];
+                $status = Post::STATUS[$status];
+                return "<span class='badge bg-$color'>$status</span>";
+            }
             return $status;
         });
         $grid->column('enabled', __('Enabled'))->display(function ($enabled){
-            return $enabled? "Enable": "Disable";
+            return $enabled? "<span class='badge bg-green'>Enable</span>": "<span class='badge bg-red'>Disable</span>";
         });
         $grid->column('modifier_id', __('Modifier'))->display(function (){
             return $this->modifier ? $this->modifier->name : "";
@@ -108,7 +112,7 @@ class PostController extends AdminController
     protected function form()
     {
         $form = new Form(new Post());
-
+        $form->switch('enabled', __('Enabled'))->default(1);
         $form->text('name', __('Name'));
         $form->textarea('short_description', __('Short description'));
         $form->text('metaTitle', __('MetaTitle'));
@@ -148,7 +152,13 @@ class PostController extends AdminController
 
         $form->datetime('publish_date', __('Publish date'))->default(date('Y-m-d H:i:s'));
         $form->switch('allow_comment', __('Allow comment'))->default(1);
-        $form->switch('enabled', __('Enabled'))->default(1);
+
+        $form->saving(function (Form $form) {
+            if(empty($form->url_key)){
+                $form->url_key = str_replace(" ","-",$form->name);
+            }
+        });
+
         return $form;
     }
 }

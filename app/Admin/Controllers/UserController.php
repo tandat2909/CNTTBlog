@@ -75,7 +75,7 @@ class UserController extends AdminController
     protected function detail($id)
     {
         $show = new Show(User::findOrFail($id));
-
+        $show->field('enabled', __('Enabled'));
         $show->field('id', __('Id'));
         $show->field('role_id', __('Role id'));
         $show->field('name', __('Name'));
@@ -87,11 +87,9 @@ class UserController extends AdminController
         $show->field('lastLogin', __('LastLogin'));
         $show->field('intro', __('Intro'));
         $show->field('profile', __('Profile'));
-        $show->field('password', __('Password'));
-        $show->field('remember_token', __('Remember token'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
-        $show->field('enabled', __('Enabled'));
+
 
         return $show;
     }

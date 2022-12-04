@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\URL;
 
 class Catalog extends AbstractController
 {
-    const PAGE_SIZE = 1;
+    const PAGE_SIZE = 12;
 
     public function posts(Request $request, $category_url_rewrite)
     {
@@ -51,9 +51,6 @@ class Catalog extends AbstractController
 
     public function postDetail(Request $request, $post_url_rewrite)
     {
-//        Post::createIndex();
-//        Post::putMapping(true);
-//        Post::addAllToIndex();
         if (empty($post_url_rewrite)) {
             to_route('404');
         }
@@ -132,7 +129,7 @@ class Catalog extends AbstractController
         if($user){
 
             $like = PostLike::where("post_id",$post->id)->where("user_id",$user->id);
-            $isLike = $like->first() ? !$like->first()->is_like :0;
+            $isLike = $like->first() ? !$like->first()->is_like :1;
             $like->updateOrCreate([
                 'user_id' => $user->id,
                 'post_id' => $post -> id

@@ -44,6 +44,8 @@
 
 @section('footer.scripts')
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
     <script src="/js/jquery-3.5.1.min.js"></script>
     <script src="/assets/bootstrap/js/popper.min.js"></script>
     <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
@@ -58,5 +60,7 @@
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/theme.js"></script>
+    <script src="/assets/slick/slick.min.js"></script>
+
 
 @endsection

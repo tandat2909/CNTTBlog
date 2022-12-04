@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends AbstractModel
 {
@@ -99,7 +100,7 @@ class Post extends AbstractModel
      */
     public function CommentCollection($value=''): HasMany
     {
-        return $this->hasMany(PostComment::class, 'post_id');
+        return $this->hasMany(PostComment::class, 'post_id')->where('parent_id', null);
     }
 
     /**
@@ -120,6 +121,12 @@ class Post extends AbstractModel
         return $this->hasMany(PostLike::class, 'post_id')->where('is_like',1);
     }
 
+    public  function isUserLikePost():bool {
+        $user = Auth::user();
+        if(!isset($user->id)) return false;
+        $like = $this->LikeCollection()->where("user_id",$user->id);
+        return $like->first() ? $like->first()->is_like:false;
+    }
     public function save(array $options = [])
     {
         if (parent::save($options)){

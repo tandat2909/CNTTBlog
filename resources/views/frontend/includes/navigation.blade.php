@@ -6,7 +6,10 @@
         </a>
         <div class="search-input">
             <ion-icon class="search-icon" name="search-outline"></ion-icon>
-            <input type="text" placeholder="Search..." value="" class="">
+            <form action="{{URL::route('searchForum')}}">
+                <input type="text" placeholder="Search..." name="search" value="{{request("search")}}" class="">
+            </form>
+
         </div>
         <div class="mobile-dark-mode d-lg-none">
             <label for="something" class="tab-btn tab-btns">

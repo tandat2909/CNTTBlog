@@ -10,14 +10,17 @@ class PostComment extends AbstractModel
 {
 
     protected $fillable = [
-        'id',
-        'post_id',
-        'parent_id',
-        'user_id,',
-        'created_at',
-        'updated_at',
-        'content'
+        "id",
+        "post_id",
+        "parent_id",
+        "user_id",
+        "enabled",
+        "created_at",
+        "updated_at",
+        "content",
     ];
+    protected $dates = [  "created_at","updated_at",];
+
 
     /**
      * @param $value
@@ -40,5 +43,6 @@ class PostComment extends AbstractModel
     public function CommentChild($value=''){
         return $this->hasMany(PostComment::class,'parent_id');
     }
+
 
 }

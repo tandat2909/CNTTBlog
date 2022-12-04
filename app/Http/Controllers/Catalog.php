@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\URL;
 
 class Catalog extends AbstractController
 {
-    const PAGE_SIZE = 12;
+    const PAGE_SIZE = 20;
 
     public function posts(Request $request, $category_url_rewrite)
     {
@@ -33,10 +33,12 @@ class Catalog extends AbstractController
 
         $postCollection = $objectCategory->getPostCollectionByStatus();
         $totalPost = $postCollection->count();
-
+        $recent = clone $postCollection;
+        $recent = $recent->sortBy('created_at', 1)->skip(0)->take(5);
         $pageCollection = $postCollection->skip($skip)->take(self::PAGE_SIZE);
 
         $this->addDataView('postCollection', $pageCollection);
+        $this->addDataView('recent', $recent);
         $this->addDataView('category', $objectCategory);
         $this->addDataView("pageSize",self::PAGE_SIZE);
         $this->addDataView("totalPost",$totalPost);
@@ -60,6 +62,9 @@ class Catalog extends AbstractController
             $this->addDataView('post', $post);
             $post->update(["views" => $post->views + 1]);
             $post->addToIndex();
+            $this->addDataView('hashtags',Hashtag::all());
+            $user = Auth::user();
+            $this->addDataView('currentUser',$user);
             return $this->getView('frontend.pages.postdetail');
         }
         return to_route("404");
@@ -70,20 +75,20 @@ class Catalog extends AbstractController
         $post = $this->getPost($post_url_rewrite);
         $parentCommentId = $request->get('parent_id');
         $content = $request->get("content");
+        $user = Auth::user();
         if(!empty($parentCommentId))
         {
             $parentComment = PostComment::find($parentCommentId);
             if(!isset($parentComment->id) || !$parentComment->enabled)
             {
-                return to_route('404');
+                $parentCommentId = null;
             }
         }
 
-        if(!$post || empty($content) || !Auth::hasUser() || !Auth::check())
+        if(!$post || empty($content) || !$user)
         {
             return to_route('404');
         }
-        $user = Auth::user();
 
         $comment = PostComment::create([
             'post_id' => $post->id,
@@ -92,7 +97,8 @@ class Catalog extends AbstractController
             'content' =>$content
         ]);
 
-        return to_route('post_detail',['post_url_rewrite' => $post_url_rewrite]);
+        $this->addDataView("post",$post);
+        return $this->getView("frontend.includes.viewcomments");
     }
 
     private function getPost($post_url_rewrite){

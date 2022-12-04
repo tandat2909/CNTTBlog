@@ -38,86 +38,23 @@
                     <aside class="l_widget comment_list">
                         <h3 class="wd_title">Recent Topics</h3>
                         <ul class="navbar-nav">
+                            @foreach($recent as $recentpost)
                             <li>
                                 <div class="media">
                                     <div class="d-flex">
                                         <i class="icon_chat_alt"></i>
                                     </div>
                                     <div class="media-body">
-                                        <a href="#">
-                                            <h4>Intégration 300 by</h4>
+                                        <a href="#"><h5>{{$recentpost->name}}</h5>
                                         </a>
                                         <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Jean Conner</h5>
+                                            <h5> by {{$recentpost->Author->name}}</h5>
                                         </a>
-                                        <p>4 days, 3 hours ago</p>
+                                        <p>{{ $recentpost->updated_at->diffForHumans()}}</p>
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <i class="icon_chat_alt"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <h4>how by</h4>
-                                        </a>
-                                        <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Lucile Barber</h5>
-                                        </a>
-                                        <p>1 week ago</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <i class="icon_chat_alt"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <h4>testing by</h4>
-                                        </a>
-                                        <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Dwain Cherry</h5>
-                                        </a>
-                                        <p>3 days, 20 hours ago</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <i class="icon_chat_alt"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <h4>Title by</h4>
-                                        </a>
-                                        <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Kati Burch</h5>
-                                        </a>
-                                        <p>1 month ago</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <i class="icon_chat_alt"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <h4>Green Planet by</h4>
-                                        </a>
-                                        <a href="#">
-                                            <h5><img src="img/forum/r-topic-user.png" alt=""> Morris Ruiz</h5>
-                                        </a>
-                                        <p>1 week, 2 days ago</p>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
                         </ul>
                     </aside>
                 </div>
@@ -308,8 +245,10 @@
                                                         </div>
                                                     </li>
                                                 </ul>
-                                                <a class="count" href="#"><ion-icon name="heart-outline"></ion-icon> 5</a>
-                                                <a class="count" href="#"><ion-icon name="chatbubbles-outline"></ion-icon> 70</a>
+                                                <a class="count" href="#"><ion-icon name="heart-outline"></ion-icon>
+                                                    {{$post->LikeCollection->count()}}</a>
+                                                <a class="count" href="{{URL::route("post_detail",["post_url_rewrite" => $post->url_key ])}}#comments"><ion-icon name="chatbubbles-outline"></ion-icon>
+                                                    {{$post->CommentCollection->count()}}</a>
                                                 <a class="count" href="#"><ion-icon name="eye-outline"></ion-icon> {{$post->views ?? 0}}</a>
                                             </div>
                                         </div>
@@ -354,9 +293,12 @@
             <div class="col-xl-3 col-lg-4">
                 <div class="right_side_forum">
                     <aside class="r_widget qustion_wd">
-                        <button class="btn" type="button"><img src="/img/forum/helpful-user/question-1.png"
-                                                               alt="">Ask Question <i class="arrow_carrot-right"></i></button>
+                        <button class="btn" type="button"  data-toggle="modal" data-target="#exampleModal">
+                            <img src="/img/forum/helpful-user/question-1.png"  alt="">Ask Question <i class="arrow_carrot-right"></i>
+                        </button>
                     </aside>
+
+
                     <aside class="r_widget user_list_wd">
                         <div class="r_heading d-flex justify-content-between">
                             <h3>Most Helpful</h3>
@@ -554,4 +496,6 @@
         </div>
     </div>
 </section>
+@include("frontend.includes.createpost")
 @endsection
+

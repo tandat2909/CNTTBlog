@@ -21,7 +21,7 @@
                         </div>
                         <!-- /.action-content -->
                         <div class="action-button-container">
-                            <a href="#" class="action_btn btn-ans">Ask a Question</a>
+                            <button type="button" data-toggle="modal" data-target="#exampleModal" class="action_btn btn-ans">Ask a Question</button>
                         </div>
                         <!-- /.action-button-container -->
                     </div>
@@ -93,65 +93,7 @@
                     </div>
                     <!-- /.community-posts-wrapper -->
                 </div>
-                <!-- /.col-lg-9 -->
-
-                <div class="col-lg-3">
-                    <div class="forum_sidebar">
-                        <div class="widget status_widget">
-                            <h4 class="c_head">Information</h4>
-                            <p class="status">Support is <span class="offline">Offline</span></p>
-
-                            <div class="open-hours">
-                                <h4 class="title-sm">Our office hours</h4>
-                                <p>Monday - Friday / 10am - 6pm (UTC +4) NewYork</p>
-                                <ul class="current-time list-unstyled">
-                                    <li>
-                                        <h4 class="title-sm">Your time</h4>
-                                        <p>10:30:15 PM</p>
-                                    </li>
-                                    <li>
-                                        <h4 class="title-sm">Your time</h4>
-                                        <p>10:30:15 PM</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /.open-hours -->
-
-                        </div>
-
-                        <div class="widget ticket_widget">
-                            <h4 class="c_head">Ticket Categories</h4>
-
-                            <ul class="list-unstyled ticket_categories">
-                                <li><img src="/img/home_support/cmm5.png" alt="category"/>
-                                    <a href="#">Docs WordPress Theme</a> <span class="count">10</span>
-                                </li>
-                                <li><img src="/img/home_support/cmm4.png" alt="category"/>
-                                    <a href="#">Product Landing</a>
-                                    <span class="count count-fill">13</span>
-                                    <span class="count">54</span>
-                                </li>
-                                <li><img src="/img/home_support/cmm2.png" alt="category"/>
-                                    <a href="#">Knowledge Base</a><span class="count">142</span>
-                                </li>
-                                <li><img src="/img/home_support/cmm8.png" alt="category"/>
-                                    <a href="#">Startup and App</a> <span class="count">13</span>
-                                </li>
-                                <li><img src="/img/home_support/cmm9.png" alt="category"/>
-                                    <a href="#">Clean Email Template</a> <span class="count">123</span>
-                                </li>
-                                <li><img src="/img/home_support/cmm10.png" alt="category"/>
-                                    <a href="#">Apps WordPress Theme</a> <span class="count">18</span>
-                                </li>
-                            </ul>
-                        </div>
-
-{{--                        code tag--}}
-                         @include('frontend.includes.tag')
-
-                    </div>
-                </div>
-                <!-- /.col-lg-3 -->
+                @include('frontend.includes.information')
             </div>
         </div>
     </section>
@@ -170,4 +112,5 @@
         </div>
         <!-- /.container -->
     </div>
+    @include('frontend.includes.createpost')
 @endsection

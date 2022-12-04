@@ -105,7 +105,7 @@
                         <div class="post-comment" id="comment-${commentId}">
                             <form action="{{URL::route('post_comment',['post_url_rewrite' => $post->url_key])}}" id="form-comment-post-id"  onsubmit="return false;">
                                 {{csrf_field()}}
-                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{$currentUser->avatar}}" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea" id="form-comment-post-id-textbox"></textarea></div>
+                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{$currentUser ? $currentUser->avatar: "" }}" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea" id="form-comment-post-id-textbox"></textarea></div>
                                 <div class="mt-2 text-right">
                                     <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
                                 </div>
@@ -162,7 +162,7 @@
                         <form action="${url}" id="form-comment-${commentId}"  onsubmit="return false;">
                             {{csrf_field()}}
                 <input type="hidden" name="parent_id" value="${commentId}" />
-                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{$currentUser->avatar}}" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea"></textarea></div>
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{$currentUser ? $currentUser->avatar: "" }}" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea"></textarea></div>
                             <div class="mt-2 text-right">
                                 <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
                             </div>

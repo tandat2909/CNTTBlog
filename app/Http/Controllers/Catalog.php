@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\URL;
 
 class Catalog extends AbstractController
 {
-    const PAGE_SIZE = 1;
+    const PAGE_SIZE = 20;
 
     public function posts(Request $request, $category_url_rewrite)
     {
@@ -33,10 +33,12 @@ class Catalog extends AbstractController
 
         $postCollection = $objectCategory->getPostCollectionByStatus();
         $totalPost = $postCollection->count();
-
+        $recent = clone $postCollection;
+        $recent = $recent->sortBy('created_at', 1)->skip(0)->take(5);
         $pageCollection = $postCollection->skip($skip)->take(self::PAGE_SIZE);
 
         $this->addDataView('postCollection', $pageCollection);
+        $this->addDataView('recent', $recent);
         $this->addDataView('category', $objectCategory);
         $this->addDataView("pageSize",self::PAGE_SIZE);
         $this->addDataView("totalPost",$totalPost);

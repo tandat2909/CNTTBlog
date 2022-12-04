@@ -24,5 +24,8 @@
         <aside class="l_widget l_tags_wd">
             @include('frontend.includes.tag')
         </aside>
+        <aside class="l_widget l_tags_wd">
+            @include('frontend.includes.categories')
+        </aside>
     </div>
 </div>

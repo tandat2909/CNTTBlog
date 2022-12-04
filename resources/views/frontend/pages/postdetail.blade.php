@@ -102,20 +102,25 @@
                         <div class="action-button-container action-btns">
 
                         </div>
-                        <div class="post-comment" id="comment-${commentId}">
-                            <form action="{{URL::route('post_comment',['post_url_rewrite' => $post->url_key])}}" id="form-comment-post-id"  onsubmit="return false;">
-                                {{csrf_field()}}
-                                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{$currentUser ? $currentUser->avatar: "" }}" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea" id="form-comment-post-id-textbox"></textarea></div>
-                                <div class="mt-2 text-right">
-                                    <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
-                                </div>
-                            </form>
-                        </div>
+                        @if($post->status  === \App\Models\Post::STATUS_APPROVED)
+                            <div class="post-comment" id="comment-${commentId}">
+                                <form action="{{URL::route('post_comment',['post_url_rewrite' => $post->url_key])}}" id="form-comment-post-id"  onsubmit="return false;">
+                                    {{csrf_field()}}
+                                    <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="{{$currentUser ? $currentUser->avatar: "" }}" width="40"><textarea name="content" class="form-control ml-1 shadow-none textarea" id="form-comment-post-id-textbox"></textarea></div>
+                                    <div class="mt-2 text-right">
+                                        <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
+
                     </div>
 
                     <!-- All answer -->
                     <div class="all-answers" id="comments">
-                       @include('frontend.includes.viewcomments')
+                        @if($post->status  === \App\Models\Post::STATUS_APPROVED)
+                            @include('frontend.includes.viewcomments')
+                        @endif
                     </div>
                 </div>
                 @include('frontend.includes.information')
@@ -149,7 +154,7 @@
                         }
                     }
                 }
-            }}
+
             );
         })
     </script>
@@ -181,6 +186,10 @@
                         data: form.serialize(),
                         success: function(data)
                         {
+                            if(data?.error){
+                                alert(data?.error);
+                                return;
+                            }
                             $(`#comments`).empty().html(data)
                         }
                     });
@@ -203,6 +212,10 @@
                 data: form.serialize(),
                 success: function(data)
                 {
+                    if(data?.error){
+                        alert(data?.error);
+                        return;
+                    }
                     $('#form-comment-post-id-textbox').val("");
                     $(`#comments`).empty().html(data)
                 }

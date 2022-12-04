@@ -60,7 +60,7 @@
 
             <div class="action-button-container action-btns">
                 <button class="action_btn btn-ans ask-btn reply-btn btn-comment-child"
-                        data-commentid="" style="border: none" >Reply
+                        data-commentid="{{$comment->id}}" style="border: none" >Reply
                 </button>
             </div>
         </div>

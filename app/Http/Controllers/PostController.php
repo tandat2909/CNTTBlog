@@ -39,7 +39,8 @@ class PostController extends Controller
             'name' => ['required','unique:posts','max:255'],
             'publish_date' => ['required','date'],
             'post_content' => ['required','string'],
-            'categories_ids' => ['required','array',"min:1"]
+            'categories_ids' => ['required','array',"min:1"],
+            'url_key' => ['required','unique:posts']
         ]);
         $user = Auth::user();
         $url_key = !empty($dataForm['url_key']) ? $dataForm['url_key'] : str_replace(' ','-',$dataForm["name"]);
@@ -59,8 +60,7 @@ class PostController extends Controller
         $post->save();
         session(['post.formData' => []]);
 
-
-        return $post->toArray();
+        return redirect()->route('post_detail',['post_url_rewrite'=>$post->url_key]);
 
     }
 

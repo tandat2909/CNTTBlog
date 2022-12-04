@@ -20,11 +20,11 @@ class Catalog extends AbstractController
     public function posts(Request $request, $category_url_rewrite)
     {
 
-        $objectCategory = Category::where('url_rewrite', $category_url_rewrite)->where('enabled', 1)->get();
+        $objectCategory = Category::where('url_rewrite', $category_url_rewrite)->where('enabled', 1)->get()->first();
         if ($objectCategory->count() === 0) {
             return to_route('index');
         }
-        $objectCategory = $objectCategory[0];
+//        $objectCategory = $objectCategory[0];
         $skip = 0;
         if(!empty($request->get('p'))){
             $p = $request->get('p');
@@ -32,9 +32,13 @@ class Catalog extends AbstractController
         }
 
         $postCollection = $objectCategory->getPostCollectionByStatus();
-        $totalPost = $postCollection->count();
         $recent = clone $postCollection;
-        $recent = $recent->sortBy('created_at', 1)->skip(0)->take(5);
+        $totalPost = $postCollection->count();
+
+        $recent = $recent->sortBy(function ($value,$key){
+            if(!is_object($value)) return $value;
+            return $value->created_at->timestamp;
+        }, 1)->skip(0)->take(5);
         $pageCollection = $postCollection->skip($skip)->take(self::PAGE_SIZE);
 
         $this->addDataView('postCollection', $pageCollection);
@@ -58,14 +62,18 @@ class Catalog extends AbstractController
         }
 
         $post = $this->getPost($post_url_rewrite);
-        if (isset($post->enabled) && $post->enabled) {
+        $user = Auth::user();
+
+        if ((isset($post->enabled) && $post->enabled && $post->status === Post::STATUS_APPROVED) ||
+            ($post->author_id == $user->id && $post->status == Post::STATUS_PENDING)
+        ) {
             $this->addDataView('post', $post);
             $post->update(["views" => $post->views + 1]);
             $post->addToIndex();
             $this->addDataView('hashtags',Hashtag::all());
-            $user = Auth::user();
             $this->addDataView('currentUser',$user);
             return $this->getView('frontend.pages.postdetail');
+
         }
         return to_route("404");
     }
@@ -73,6 +81,7 @@ class Catalog extends AbstractController
     public function commentPost(Request $request,$post_url_rewrite)
     {
         $post = $this->getPost($post_url_rewrite);
+        if(!$post->allow_comment)  return response()->json(['error'=>"Can't comment on this post"]);
         $parentCommentId = $request->get('parent_id');
         $content = $request->get("content");
         $user = Auth::user();

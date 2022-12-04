@@ -131,7 +131,7 @@ class Post extends AbstractModel
     {
         if (parent::save($options)){
            $this->addToIndex();
-            return true;
+           return true;
         }
         return false;
     }

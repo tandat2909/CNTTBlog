@@ -55,6 +55,9 @@
     <div class="form-group">
         <label for="url_key">URL Post</label>
         <input type="text" id = "url_key" class="form-control" name="url_key" value="{{$formData["url_key"]??''}}"/>
+        @if($errors->has('url_key'))
+            <div class="error">{{ $errors->first('url_key') }}</div>
+        @endif
     </div>
 
     <div class="form-group">
